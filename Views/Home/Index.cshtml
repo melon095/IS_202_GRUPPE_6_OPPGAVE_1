@@ -45,11 +45,11 @@
     <div>
         <h2>Submitted Coordinates:</h2>
     
-        <ul>
+        <ol>
             @foreach (var report in Model.AllReports)
             {
                 <li>Latitude: @report.Latitude, Longitude: @report.Longitude</li>
             }
-        </ul>
+        </ol>
     </div>
 }

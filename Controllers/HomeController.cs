@@ -72,6 +72,17 @@ public class HomeController : Controller
         return View(view);
     }
 
+    [HttpGet]
+    public IActionResult Rapporter()
+    {
+        var view = new HomeSubmitModel
+        {
+            AllReports = _reportService.GetAllReports().ToList()
+        };
+        
+        return View(view);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

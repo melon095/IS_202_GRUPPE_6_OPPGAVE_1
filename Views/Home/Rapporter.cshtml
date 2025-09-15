@@ -1,0 +1,19 @@
+﻿@model Gruppe6Oppgave1.Web.Controllers.HomeSubmitModel
+
+@{
+    ViewData["Title"] = "Rapporter";
+}
+
+@if (Model.AllReports.Count > 0)
+{
+    <div>
+        <h2>Submitted Coordinates:</h2>
+    
+        <ol>
+            @foreach (var report in Model.AllReports)
+            {
+                <li>Latitude: @report.Latitude, Longitude: @report.Longitude</li>
+            }
+        </ol>
+    </div>
+}
