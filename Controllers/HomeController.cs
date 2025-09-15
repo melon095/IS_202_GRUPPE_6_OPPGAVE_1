@@ -43,6 +43,7 @@ public class HomeController : Controller
         _reportService = reportService;
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
         var view = new HomeSubmitModel
@@ -53,11 +54,12 @@ public class HomeController : Controller
         return View(view);
     }
 
-    [HttpPost("Submit")]
-    public IActionResult PostSubmit(HomeSubmitModel body)
+    [HttpPost]
+    public IActionResult Index(HomeSubmitModel body)
     {
+        // if (ModelState.IsValid == false)
         if (!ModelState.IsValid)
-            return View("Index", body);
+            return View(body);
 
         var report = new Report(body.NewLatitude, body.NewLongitude);
         _reportService.AddReport(report);
@@ -67,12 +69,7 @@ public class HomeController : Controller
             AllReports = _reportService.GetAllReports().ToList()
         };
 
-        return View("Index", view);
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
+        return View(view);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
