@@ -52,3 +52,10 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Appsettings
+appsettings*.json
+!appsettings.json
+
+# Rider
+.idea/
