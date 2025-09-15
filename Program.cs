@@ -1,7 +1,11 @@
+using Gruppe6Oppgave1.Web.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<ReportService, ReportService>();
 
 var app = builder.Build();
 
