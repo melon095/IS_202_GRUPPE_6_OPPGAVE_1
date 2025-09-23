@@ -1,0 +1,26 @@
+﻿@model Gruppe6Oppgave1.Web.Models.GetAllReportsModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h2>Rapporter</h2>
+
+<table class="table">
+    <thead>
+        <th>Navn</th>
+        <th>Lattitude</th>
+        <th>Longitude</th>
+        <th>Altitude</th>
+    </thead>
+    <tbody>
+        @foreach (var report in Model.Reports)
+        {
+            <tr>
+                <td>@report.Navn</td>
+                <td>@report.Lattitude</td>
+                <td>@report.Longitude</td>
+                <td>@report.Altitude</td>
+            </tr>
+        }
+    </tbody>
+</table>

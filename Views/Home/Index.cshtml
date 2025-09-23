@@ -1,8 +1,40 @@
-﻿@{
+﻿@model Gruppe6Oppgave1.Web.Controllers.HomeSubmitModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        <ul>
+            @foreach(var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<h1>Submit Coordinates</h1>
+<form method="post" asp-action="PostSubmit">
+    <div>
+        <label asp-for="NewLatitude">Latitude:</label>
+        <input asp-for="NewLatitude" type="number" required step="0.00000001"/>
+    </div>
+    <div>
+        <label asp-for="NewLongitude">Longitude:</label>
+        <input asp-for="NewLongitude" type="number" required step="0.00000001" />
+
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+<div>
+    <ul>
+    @foreach(var report in Model.Allreports)
+    {
+       <li>Latitude: @report.Latitude, Longitude: @report.Longitude</li>
+    }
+    </ul>
 </div>
