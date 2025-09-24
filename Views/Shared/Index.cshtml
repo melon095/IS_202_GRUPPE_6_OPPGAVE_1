@@ -1,0 +1,29 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 60vh;
+            width: 100%;
+        }</style>
+}
+
+<div id="map"></div>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([60.472, 8.4689], 5);
+
+        const topo = L.tileLayer(
+          'https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png',
+          { attribution: '© Kartverket' }
+        ).addTo(map);
+
+        const graatone = L.tileLayer(
+          'https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png',
+          { attribution: '© Kartverket' }
+        );
+
+        L.control.layers({ "Topo": topo, "Gråtone": graatone }, {}).addTo(map);
+    </script>
+}
