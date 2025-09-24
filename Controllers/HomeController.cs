@@ -1,27 +1,12 @@
 using Gruppe6Oppgave1.Models;
 using Gruppe6Oppgave1.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using MySqlConnector;
 using System.Diagnostics;
 
 namespace Gruppe6Oppgave1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        private readonly string _connectionString;
-
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
         [HttpGet]
         public ActionResult DataForm()
         {
@@ -34,25 +19,9 @@ namespace Gruppe6Oppgave1.Controllers
             return View("Overview", obstacledata);
         }
 
-        public HomeController(IConfiguration config)
-        {
-            _connectionString = config.GetConnectionString("DefaultConnection")!;
-        }
-
         public async Task<IActionResult> Index()
         {
-            string viewModel1 = ("Connected to MariaDB succsesfully");
-            string viewModel2 = ("Failed to connect to MariaDB");
-            try
-            {
-                await using var conn = new MySqlConnection(_connectionString);
-                await conn.OpenAsync();
-                return View("Index", viewModel1);
-            }
-            catch (Exception ex)
-            {
-                return View("Index", viewModel2);
-            }
+            return View("Index");
         }
         public IActionResult Privacy()
         {
