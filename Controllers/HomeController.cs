@@ -1,81 +1,68 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+using Gruppe6Oppgave1.Models;
 using Gruppe6Oppgave1.Web.Models;
+using Microsoft.AspNetCore.Mvc;
+using MySqlConnector;
+using System.Diagnostics;
 
-namespace Gruppe6Oppgave1.Web.Controllers;
-
-
-public class HomeSubmitModel
+namespace Gruppe6Oppgave1.Controllers
 {
-    public List<Report> Allreports { get; set; } = [];
-    public double NewLatitude { get; set; }
-    public double NewLongitude { get; set; }
-}
-public class ReportService
-{
-    private readonly List<Report> _reports = [];
-    public void AddReport(Report report)
+    public class HomeController : Controller
     {
-        _reports.Add(report);
-    }
-    public IEnumerable<Report> GetAllReports() => _reports;
-}
+        private readonly ILogger<HomeController> _logger;
 
-public class Report
-{
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    
-    public Report(double lat, double log)
-    {
-        Latitude = lat;
-        Longitude = log;
-    }
-}
-public class HomeController : Controller
-{
-    private readonly ILogger<HomeController> _logger;
-    private readonly ReportService _reportService;
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
 
-    public HomeController(ILogger<HomeController> logger, ReportService reportService)
-    {
-        _logger = logger;
-        _reportService = reportService;
-    }
+        private readonly string _connectionString;
 
-    public IActionResult Index()
-    {
-        var view = new HomeSubmitModel
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        [HttpGet]
+        public ActionResult DataForm()
         {
-            Allreports = _reportService.GetAllReports().ToList()
-        };
-        return View(view);
-    }
-    [HttpPost("Submit")]
-    public IActionResult PostSubmit(HomeSubmitModel body)
-    {
-        if (!ModelState.IsValid)
-            return View("Index", body);
+            return View();
+        }
 
-        var report = new Report(body.NewLatitude, body.NewLongitude);
-        _reportService.AddReport(report);
-
-        var view = new HomeSubmitModel
+        [HttpPost]
+        public ActionResult DataForm(ObstacleData obstacledata)
         {
-            Allreports = _reportService.GetAllReports().ToList()
-        };
-        return View("Index", view);
-    }
+            return View("Overview", obstacledata);
+        }
 
+        public HomeController(IConfiguration config)
+        {
+            _connectionString = config.GetConnectionString("DefaultConnection")!;
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        public async Task<IActionResult> Index()
+        {
+            string viewModel1 = ("Connected to MariaDB succsesfully");
+            string viewModel2 = ("Failed to connect to MariaDB");
+            try
+            {
+                await using var conn = new MySqlConnection(_connectionString);
+                await conn.OpenAsync();
+                return View("Index", viewModel1);
+            }
+            catch (Exception ex)
+            {
+                return View("Index", viewModel2);
+            }
+        }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }

@@ -1,0 +1,83 @@
+﻿@model Gruppe6Oppgave1.Models.ObstacleData
+
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<section class="mx-auto max-w-2xl">
+    <div class="bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-6 space-y-4">
+        <header>
+            <h1 class="text-2xl font-semibold">Overview</h1>
+            <p class="text-gray-600 mt-1">Thank you for registering an obstacle:</p>
+        </header>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+            <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-600">Objekt navn</dt>
+                <dd class="mt-1 text-base text-gray-900 break-words">@Model.Objektnavn</dd>
+            </div>
+
+            <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-600">Objekt beskrivelse</dt>
+                <dd class="mt-1 text-base text-gray-900 break-words">@Model.Objekt_beskrivelse</dd>
+            </div>
+
+            <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-600">Lattitude</dt>
+                <dd class="mt-1 text-base text-gray-900">@Model.Lattitude</dd>
+            </div>
+
+            <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-600">Longitude</dt>
+                <dd class="mt-1 text-base text-gray-900 break-words sm:col-span-3">
+                    @Model.Longitude
+                </dd>
+            </div>
+
+            <div class="sm:col-span-1">
+                <dt class="text-sm font-medium text-gray-600">Height (foot)</dt>
+                <dd class="mt-1 text-base text-gray-900 break-words sm:col-span-3">
+                    @Model.AMSL
+                </dd>
+            </div>
+        </dl>
+
+        <div class="pt-2">
+            <a asp-controller="Home" asp-action="Index"
+               class="inline-flex items-center rounded-lg px-4 py-2 ring-1 ring-gray-300 hover:bg-gray-50">
+                Back to Home
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="card">
+    <h2>Kartposisjon</h2>
+    <div id="reportMap" class="leaflet-map"></div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+          // Hent koordinater fra modellen (server-rendered inn i JS)
+          const lat = @Model.Lattitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+          const lng = @Model.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+          // Init kart når DOM er klart
+          const map = L.map('reportMap').setView([lat, lng], 16);
+
+          // Velg bakgrunnskart (bytt til Kartverket/OSM etter behov)
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+          }).addTo(map);
+
+          // Marker posisjonen
+          L.marker([lat, lng]).addTo(map);
+
+          // Fiks layout hvis containeren var skjult ved load (valgfritt)
+          setTimeout(() => { map.invalidateSize(); }, 250);
+        })();
+    </script>
+}
