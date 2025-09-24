@@ -23,6 +23,7 @@ namespace Gruppe6Oppgave1.Controllers
             {
                 return View(obstacledata);
             }
+
             return View("Overview", obstacledata);
         }
 

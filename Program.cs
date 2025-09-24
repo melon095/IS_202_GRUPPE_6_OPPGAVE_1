@@ -1,15 +1,12 @@
 using System;
 using System.Diagnostics;
-using Gruppe6Oppgave1.Web.Controllers;
 using Gruppe6Oppgave1.Web.Databases;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<ReportService, ReportService>();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
