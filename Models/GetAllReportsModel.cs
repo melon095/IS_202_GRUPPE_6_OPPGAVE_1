@@ -9,8 +9,8 @@
         public class MakeReportList
         {
             public string Navn { get; set; }
-            public int Lattitude { get; set; }
-            public int Longitude { get; set; }
+            public double Lattitude { get; set; }
+            public double Longitude { get; set; }
             public int Altitude { get; set; }
         }
     }
