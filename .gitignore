@@ -61,6 +61,7 @@ appsettings*.json
 .idea/
 
 # Visual Studio
+<<<<<<< HEAD
 .vs/
 
 Gruppe6Oppgave1.Web.csproj.user
