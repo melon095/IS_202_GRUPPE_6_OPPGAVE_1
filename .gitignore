@@ -59,3 +59,6 @@ appsettings*.json
 
 # Rider
 .idea/
+
+# Visual Studio
+.vs/
