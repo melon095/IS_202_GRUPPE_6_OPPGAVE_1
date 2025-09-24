@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gruppe6Oppgave1.Web.Databases
 {
+    // Klasse DatabaseContext arver fra DbContext (Microsoft.EntityFrameworkCore)
     public class DatabaseContext : DbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options)

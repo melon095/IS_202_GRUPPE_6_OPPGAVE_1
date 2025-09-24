@@ -5,6 +5,7 @@
     {
         // Lage liste for rapprtene
         public List<MakeReportList> Reports { get; set; } = [];
+        // Konstruktør
         public class MakeReportList
         {
             public string Navn { get; set; }
