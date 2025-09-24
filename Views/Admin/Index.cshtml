@@ -1,0 +1,36 @@
+﻿@model Gruppe6Oppgave1.Web.Models.GetAllReportsModel
+@{
+    ViewData["Title"] = "Admin";
+}
+<!--
+    Dette er admin siden, hvor du kan se listen over rapporter
+-->
+
+<h2>Rapporter</h2>
+
+<table class="table">
+    <thead>
+        <!--
+            Thead brukes som en overskrift for tabellen. Her viser vi Navn, Lattitude,
+            Longitude og Altitude
+        -->
+        <th>Navn</th>
+        <th>Lattitude</th>
+        <th>Longitude</th>
+        <th>Altitude</th>
+    </thead>
+    <tbody>
+        <!--
+            Foreach løkke som henter informasjon fra hver rad i Marker tabellen
+        -->
+        @foreach (var report in Model.Reports)
+        {
+            <tr>
+                <td>@report.Navn</td>
+                <td>@report.Lattitude</td>
+                <td>@report.Longitude</td>
+                <td>@report.Altitude</td>
+            </tr>
+        }
+    </tbody>
+</table>
