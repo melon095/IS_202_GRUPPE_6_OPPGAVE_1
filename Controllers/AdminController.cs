@@ -5,8 +5,10 @@ using static Gruppe6Oppgave1.Web.Models.GetAllReportsModel;
 
 namespace Gruppe6Oppgave1.Web.Controllers
 {
+    // Klassen AdminController arver fra Controller klassen fra ASP NET
     public class AdminController : Controller
     {
+        // 
         private readonly DatabaseContext _context;
         public AdminController(DatabaseContext context)
         {
