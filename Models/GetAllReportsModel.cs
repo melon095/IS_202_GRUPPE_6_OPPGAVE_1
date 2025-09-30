@@ -5,7 +5,7 @@
     {
         // Lage liste for rapprtene
         public List<MakeReportList> Reports { get; set; } = [];
-        // Konstruktør
+        // Fra Marker tabellen har vi valgt Navn, Lattitude, Longitude og Altitude
         public class MakeReportList
         {
             public string Navn { get; set; }
