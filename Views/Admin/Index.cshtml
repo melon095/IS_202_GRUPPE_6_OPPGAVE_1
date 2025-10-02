@@ -2,34 +2,34 @@
 @{
     ViewData["Title"] = "Admin";
 }
-<!--
-    Dette er admin siden, hvor du kan se listen over rapporter
--->
+
+    @* Dette er admin siden, hvor du kan se listen over rapporter *@
+
 
 <h2>Rapporter</h2>
 
 <table class="table">
     <thead>
-        <!--
-            Thead brukes som en overskrift for tabellen. Her viser vi Navn, Lattitude,
+
+@*             Thead brukes som en overskrift for tabellen. Her viser vi Navn, Lattitude,
             Longitude og Altitude
-        -->
-        <th>Navn</th>
-        <th>Lattitude</th>
-        <th>Longitude</th>
-        <th>Altitude</th>
+ *@
+        <th class="px-4 py-2">Navn</th>
+        <th class="px-4 py-2">Lattitude</th>
+        <th class="px-4 py-2">Longitude</th>
+        <th class="px-4 py-2">Altitude</th>
     </thead>
     <tbody>
-        <!--
-            Foreach løkke som henter informasjon fra hver rad i Marker tabellen
-        -->
+     
+        @*
+            Foreach løkke som henter informasjon fra hver rad i Marker tabellen *@
         @foreach (var report in Model.Reports)
         {
             <tr>
-                <td>@report.Navn</td>
-                <td>@report.Lattitude</td>
-                <td>@report.Longitude</td>
-                <td>@report.Altitude</td>
+                <td class="px-4 py-2">@report.Navn</td>
+                <td class="px-4 py-2">@report.Lattitude</td>
+                <td class="px-4 py-2">@report.Longitude</td>
+                <td class="px-4 py-2">@report.Altitude</td>
             </tr>
         }
     </tbody>

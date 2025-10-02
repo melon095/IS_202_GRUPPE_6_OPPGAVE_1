@@ -1,52 +1,53 @@
-﻿@model Gruppe6Oppgave1.Models.ObstacleData
+﻿@model Gruppe6Oppgave1.Models.ObstacleData  //Henter fra modellen ObstacleData
 
 @{
-    ViewData["Title"] = "Overview";
+    ViewData["Title"] = "Overview"; //Tittel på siden
 }
 
 <section class="mx-auto max-w-2xl">
     <div class="bg-white rounded-2xl shadow-sm ring-1 ring-gray-200 p-6 space-y-4">
+        @* Lager en boks som viser informasjonen brukeren har skrevet inn*@
         <header>
-            <h1 class="text-2xl font-semibold">Overview</h1>
-            <p class="text-gray-600 mt-1">Thank you for registering an obstacle:</p>
+            <h1 class="text-2xl font-semibold">Oversikt</h1> @* Overskrift i boksen med en takk kommentar *@
+            <p class="text-gray-600 mt-1">Takk for registrering av objekt:</p>
         </header>
 
         <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            @* Lager en grid med 3 kolonner for å vise informasjonen *@
 
-            <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-600">Objekt navn</dt>
-                <dd class="mt-1 text-base text-gray-900 break-words">@Model.Objektnavn</dd>
+            <div class="sm:col-span-1"> 
+                <dt class="text-sm font-medium text-gray-600">Objekt navn</dt> @*Navn på feltet*@
+                <dd class="mt-1 text-base text-gray-900 break-words">@Model.Objektnavn</dd> @*Informasjonen som brukeren skrev inn*@
             </div>
 
             <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-600">Objekt beskrivelse</dt>
-                <dd class="mt-1 text-base text-gray-900 break-words">@Model.Objekt_beskrivelse</dd>
+                <dt class="text-sm font-medium text-gray-600">Objekt beskrivelse</dt>@*Navn på feltet*@
+                <dd class="mt-1 text-base text-gray-900 break-words">@Model.Objekt_beskrivelse</dd>@*Informasjonen som brukeren skrev inn*@
             </div>
 
             <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-600">Lattitude</dt>
-                <dd class="mt-1 text-base text-gray-900">@Model.Lattitude</dd>
+                <dt class="text-sm font-medium text-gray-600">Lattitude</dt>@*Navn på feltet*@
+                <dd class="mt-1 text-base text-gray-900">@Model.Lattitude</dd>@*Informasjonen som brukeren skrev inn*@
             </div>
 
             <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-600">Longitude</dt>
-                <dd class="mt-1 text-base text-gray-900 break-words sm:col-span-3">
-                    @Model.Longitude
-                </dd>
+                <dt class="text-sm font-medium text-gray-600">Longitude</dt>@*Navn på feltet*@
+                <dd class="mt-1 text-base text-gray-900 break-words sm:col-span-3">@Model.Longitude </dd>@*Informasjonen som brukeren skrev inn*@
             </div>
 
             <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-600">Height (foot)</dt>
-                <dd class="mt-1 text-base text-gray-900 break-words sm:col-span-3">
-                    @Model.AMSL
-                </dd>
+                <dt class="text-sm font-medium text-gray-600">Height (foot)</dt>@*Navn på feltet*@
+                <dd class="mt-1 text-base text-gray-900 break-words sm:col-span-3">@Model.AMSL </dd> @*Informasjonen som brukeren skrev inn*@
             </div>
         </dl>
 
-        <div class="pt-2">
-            <a asp-controller="Home" asp-action="Index"
-               class="inline-flex items-center rounded-lg px-4 py-2 ring-1 ring-gray-300 hover:bg-gray-50">
-                Back to Home
+        @*Lager en knapp som tar brukeren tilbake til forsie*@
+        <div class="mt-6">
+            <a asp-controller="Home" asp-action="Index" 
+               class="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2
+            text-white hover:bg-indigo-700 focus:outline-none
+            focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Forside
             </a>
         </div>
     </div>
@@ -60,23 +61,23 @@
 @section Scripts {
     <script>
         (function () {
-          // Hent koordinater fra modellen (server-rendered inn i JS)
+          // Hent koordinater fra modellen og gjør de om til punktum
           const lat = @Model.Lattitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
           const lng = @Model.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-          // Init kart når DOM er klart
-          const map = L.map('reportMap').setView([lat, lng], 16);
+          // Returnerer kartet med med markøren fra koordinatene
+          const map = L.map('reportMap').setView([lat, lng], 12);
 
-          // Velg bakgrunnskart (bytt til Kartverket/OSM etter behov)
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap'
-          }).addTo(map);
+          //Kartet kommer med farger
+              const farge = L.tileLayer(
+          'https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png',
+          { attribution: '© Kartverket', maxZoom: 20 }
+        ).addTo(map);
 
-          // Marker posisjonen
+          // Legger til selve markøren på kartet
           L.marker([lat, lng]).addTo(map);
 
-          // Fiks layout hvis containeren var skjult ved load (valgfritt)
+          // Fiks layout hvis containeren var skjult ved load
           setTimeout(() => { map.invalidateSize(); }, 250);
         })();
     </script>

@@ -1,17 +1,8 @@
-﻿@section Styles {
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        #map {
-            height: 60vh;
-            width: 100%;
-        }</style>
-}
-
-<div id="map"></div>
+﻿<div id="map"></div> @*Gjør at det er mulig å vite hvor kartet skal settes, siden IDen*@
 
 @section Scripts {
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
+    <script>  //Her lages kartet, også siden IDen er satt fra tidligere, her kommer også de forskjellige kartene og blir lagt til i kartet
         const map = L.map('map').setView([60.472, 8.4689], 5);
 
         const topo = L.tileLayer(
