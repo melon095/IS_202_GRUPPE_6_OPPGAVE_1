@@ -1,5 +1,6 @@
 ﻿namespace Gruppe6Oppgave1.Web.Databases.Tables
 {
+    // Kolonnene for databasen
     public class Marker
     {
         public Guid Id { get; set; }
