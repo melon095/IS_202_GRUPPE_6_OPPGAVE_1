@@ -1,8 +1,25 @@
-ï»¿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home Page"; //Tittel på hjemmesiden
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="max-w-3xl mx-auto mt-10">
+    <div class="text-center space-y-4">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-indigo-700"> @* Stil på hjemmesiden *@
+            Velkommen
+        </h1>
+        <a class="text-indigo-700 hover:underline"
+        </a>
+
+        <p></p>
+    </div>
+    
+    @*Dette lager en knapp som tar brukeren til rapport siden, ved å kalle må metoden dataform fra obstacle controller*@
+    <div class="mt-6">
+  <a asp-controller="Obstacle" asp-action="DataForm"
+     class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2.5
+            text-white shadow-sm hover:bg-indigo-700 focus:outline-none
+            focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+    Registrer objekt
+  </a>
 </div>
+</section>

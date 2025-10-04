@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Kart";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> @* Dette er en type stil, med linken fra leaflet *@
+    <style>
+        #map {
+            height: 70vh;
+            width: 100%;
+        }
+        @*Gir høyde og bredde til kartet*@
+    </style>
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <div id="map"></div> @*Henter fra kartet*@
+</div>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> @*Dette er en type script, med linken fra leaflet *@
+    <script>
+        // Senter kartet på Norge
+        const map = L.map('map').setView([60.472, 8.4689], 5);
+
+        // Kartverket WMTS (topografisk)
+        const topo = L.tileLayer(
+            'https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png',
+            { attribution: '© Kartverket' }
+        ).addTo(map);
+
+        // Forskjellige typer kart
+        const graatone = L.tileLayer(
+            'https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png',
+            { attribution: '© Kartverket' }
+        );
+        const raster = L.tileLayer(
+            'https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png',
+            { attribution: '© Kartverket' }
+        );
+        const sjokart = L.tileLayer(
+            'https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png',
+            { attribution: '© Kartverket' }
+        );
+
+        L.control.layers(  //Legger til en knapp i kartet slik at bruker kan velge mellom forskjellige kart
+            { "Topo (farge)": topo, "Topo (gråtone)": graatone, "Topo (raster)": raster, "Sjøkart": sjokart },
+            {}
+        ).addTo(map); //Må til for at det skal bli lagt til i kartet
+    </script>
+}

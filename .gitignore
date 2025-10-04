@@ -59,3 +59,10 @@ appsettings*.json
 
 # Rider
 .idea/
+
+# Visual Studio
+.vs/
+
+Gruppe6Oppgave1.Web.csproj.user
+
+
