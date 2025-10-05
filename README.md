@@ -1,47 +1,54 @@
-Drift
+# Drift
 
-Applikasjonen kan kjøres lokalt ved å starte prosjektet i Visual Studio.
-Den kobler seg til en MySQL-database som er definert i filen appsettings.json under feltet "DefaultConnection".
+Applikasjonen kan enten startes manuelt via Visual Studio, eller med docker ved bruk av kommando `docker compose up` i terminalen.
+Den kobler seg til en MariaDB Database der rapport tabellen blir skapt fra Databases/Tables/Marker.cs
 Databasen og tabellene opprettes og oppdateres automatisk ved hjelp av Entity Framework Core-migrasjoner.
 
+# Systemarkitektur
 
-Systemarkitektur
+## Databses
 
-Models:
+[Tables/Marker](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Databases/Tables/Marker.cs) er tabellen i databasen som lagrer informasjonen om registrerte objekter.
 
-ObstacleData representerer hindringer som brukerne registrerer.
+[DatabaseContext](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Databases/DatabaseContext.cs) Klasse som kommuniserer mellom C# og databasen.
 
-Marker er tabellen i databasen som lagrer informasjonen om registrerte objekter.
+## Models
 
-GetAllReportsModel brukes for å hente ut alle registrerte objekter til visning i admin-delen.
+[ObstacleData](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Models/ObstacleData.cs) representerer hindringer som brukerne registrerer.
 
-Controllers:
+[GetAllReportsModel](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Models/GetAllReportsModel.cs) brukes for å hente ut alle registrerte objekter til visning i admin-delen.
 
-HomeController håndterer startsiden, registreringsskjemaet og oversiktsvisningen.
+## Controllers
 
-ObstacleController tar imot data fra skjemaet, godkjenner input og lagrer informasjonen i databasen.
+[HomeController](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Controllers/HomeController.cs) håndterer startsiden og oversiktsvisningen.
 
-AdminController henter alle registrerte objekter og viser dem i adminpanelet.
+[ObstacleController](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Controllers/ObstacleController.cs) håndterer registreringsskjemaet, tar imot data fra skjemaet, godkjenner input og lagrer informasjonen i databasen.
 
-MapController viser kartet med alle registrerte objekter som markører.
+[AdminController](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Controllers/AdminController.cs) henter alle registrerte objekter og viser dem i adminpanelet.
 
-Views:
+[MapController](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Controllers/MapController.cs) sender view av et kart.
 
-DataForm er skjemaet der brukeren registrerer nye objekter.
+## Views
 
-Overview viser alle registrerte objekter i en liste.
+[Obstacle/DataForm](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Views/Obstacle/DataForm.cshtml) er skjemaet der brukeren registrerer nye objekter.
 
-Admin/Index viser alle registrerte objekter i tabellform for administratoren.
+[Obstacle/Overview](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Views/Obstacle/Overview.cshtml) viser det registrerte objektet samt kart.
 
-Kartvisningen er integrert med Leaflet og viser alle objektene visuelt på kartet.
+[Admin/Index](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Views/Admin/Index.cshtml) viser alle registrerte objekter i tabellform for administratoren.
 
-Database
+[Home/Index](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Views/Home/Index.cshtml) viser start siden.
 
-Prosjektet bruker en DatabaseContext som inneholder en tabell for Marker. Denne brukes til å lagre objektene som brukerne registrerer.
-Databasen oppdateres og vedlikeholdes gjennom migrasjoner i Entity Framework Core.
-Tabellen inneholder feltene navn, beskrivelse, breddegrad, lengdegrad og høyde.
+[Map/Index](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Views/Map/Index.cshtml) viser et kart.
 
-Test
+# Database
+
+Applikasjonen bruker Entity Framework Core til abstraksjon av MariaDB database samt automatisk migrere database tabeller.
+
+Dette blir brukt for å lagre og hente data fra MariaDB database.
+
+[Tabellen](https://github.com/melon095/IS_202_GRUPPE_6_OPPGAVE_1/blob/main/Databases/Tables/Marker.cs) inneholder feltene ID (Primær Nøkkel), Navn, Beskrivelse, Breddegrad, Lengdegrad og Høyde.
+
+# Test
 
 Gyldig input: Når alle felter i skjemaet fylles ut korrekt, blir dataen lagret i databasen, og objektet vises både i oversikten og på kartet.
 Ugyldig input: Hvis ett eller flere felt er tomme eller inneholder ugyldige verdier, vises det feilmeldinger, og dataen lagres ikke.
