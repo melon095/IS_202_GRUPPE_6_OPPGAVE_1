@@ -1,17 +1,21 @@
 Drift
 
 Applikasjonen kan kjøres lokalt ved å starte prosjektet i Visual Studio.
-Den kobler seg til en MySQL-database som er definert i filen appsettings.json under feltet "DefaultConnection".
+Den kobler seg til en MariaDB Database der rapport tabellen blir skapt i Databases/Tables/Marker.cs
 Databasen og tabellene opprettes og oppdateres automatisk ved hjelp av Entity Framework Core-migrasjoner.
 
 
 Systemarkitektur
 
+Databses:
+
+Tables/Marker er tabellen i databasen som lagrer informasjonen om registrerte objekter.
+
+DatabaseContext Klasse som kommuniserer mellom C# og databasen.
+
 Models:
 
 ObstacleData representerer hindringer som brukerne registrerer.
-
-Marker er tabellen i databasen som lagrer informasjonen om registrerte objekter.
 
 GetAllReportsModel brukes for å hente ut alle registrerte objekter til visning i admin-delen.
 
@@ -23,7 +27,7 @@ ObstacleController tar imot data fra skjemaet, godkjenner input og lagrer inform
 
 AdminController henter alle registrerte objekter og viser dem i adminpanelet.
 
-MapController viser kartet med alle registrerte objekter som markører.
+MapController sender view av kartet med alle registrerte objekter som markører.
 
 Views:
 
@@ -33,7 +37,6 @@ Overview viser alle registrerte objekter i en liste.
 
 Admin/Index viser alle registrerte objekter i tabellform for administratoren.
 
-Kartvisningen er integrert med Leaflet og viser alle objektene visuelt på kartet.
 
 Database
 
